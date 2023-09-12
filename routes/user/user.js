@@ -10,6 +10,8 @@ userRouter.post("/signup", async (req, res, next) => {
   } = req;
   const user = await db.User.create({ firstName, lastName, email, password });
   const token = handleJwt.signToken(user.dataValues);
+  await db.Geolocation.create({ id: user.id });
+  // const token = handleJwt.signToken(user.dataValues);
 
   res.status(201).send({
     success: true,

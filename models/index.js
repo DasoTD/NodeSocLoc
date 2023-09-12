@@ -2,7 +2,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const fs = require("fs");
-const path = require("path");
+const path = require('path');
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
@@ -19,8 +19,10 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(
     config.database,
     config.username,
-    config.password,
-    config.dialect
+    config.password,{
+      host: 'localhost',
+      dialect: config.dialect /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+    }
   );
 }
 
