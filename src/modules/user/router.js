@@ -5,9 +5,9 @@ const {handleRequest} = require("../../middlewares")
 const AuthValidator = require("./validator")
 
 router.post("/signup", 
-handleRequest, 
-AuthValidator.validateSignUpForm(),
-AuthValidator.validate,
+// handleRequest, 
+// AuthValidator.validateSignUpForm(),
+// AuthValidator.validate,
 signup
 )
 

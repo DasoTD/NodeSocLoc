@@ -2,27 +2,30 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const fs = require("fs");
-const path = require('path');
+const path = require('node:path');
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.js")[env];
+// const config = require(__dirname + "/config")[env];
+const config = require(`${__dirname}/../config/index.js`)[env]
+const {use_env_variable, DB_DIALECT, DB_HOST, DB_NAME, DB_PASSWORD, DB_USER } = require("../config")
 
 const db = {};
 
-console.log({ config });
+// console.log({ });
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+if (use_env_variable) {
+  sequelize = new Sequelize(process.env[use_env_variable], config);
 } else {
   sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,{
-      host: 'localhost',
-      dialect: config.dialect /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
-    }
+    DB_NAME,
+    DB_USER,
+    DB_PASSWORD,{
+    host: 'localhost',
+    dialect: 'postgres', /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+    config
+  }
   );
 }
 
@@ -48,5 +51,7 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+
 
 module.exports = db;

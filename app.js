@@ -2,7 +2,24 @@ const express = require("express");
 const http = require("http");
 const { Server } = require('socket.io');
 const {join} = require('node:path');
-// const {AuthRouter} = require("./src/modules");
+const appRoutes = require("./src/routes");
+// const doubbleDB = require("./database/models");
+
+const { Sequelize } = require("sequelize");
+const {DB_NAME,DB_USER, DB_PASSWORD, DB_DIALECT, DB_HOST} = require("./src/database/config")
+
+const doubbleDB = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: DB_DIALECT,
+  operatorsAliases: "0",
+
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+});
 
 let App = express()
 let Port = 9791
@@ -13,7 +30,7 @@ App.use(express.urlencoded({ extended: true }));
 App.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
   });
-// App.use("/user", AuthRouter);
+App.use("/api/v1", appRoutes);
 
 const httpServerr = http.createServer(App)
 
@@ -51,3 +68,8 @@ io.on('connection', (socket) => {
 httpServerr.listen(Port, () => {
 console.log(`server running at http://localhost:${Port}`);
 }); 
+
+//Test DB
+doubbleDB.authenticate()
+.then(() => console.log('db connected...'))
+.catch(err => console.log(err))
