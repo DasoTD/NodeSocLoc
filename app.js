@@ -8,9 +8,9 @@ const appRoutes = require("./src/routes");
 const { Sequelize } = require("sequelize");
 const {DB_NAME,DB_USER, DB_PASSWORD, DB_DIALECT, DB_HOST} = require("./src/database/config")
 
-const doubbleDB = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+const doubbleDB = new Sequelize('soc_db', 'soc', "userPassword", {
   host: DB_HOST,
-  dialect: DB_DIALECT,
+  dialect: 'postgres',
   operatorsAliases: "0",
 
   pool: {
@@ -69,7 +69,28 @@ httpServerr.listen(Port, () => {
 console.log(`server running at http://localhost:${Port}`);
 }); 
 
+// const sequelize = require('./config');
+const User = require('./src/database/models/user');
+
 //Test DB
-doubbleDB.authenticate()
-.then(() => console.log('db connected...'))
-.catch(err => console.log(err))
+// doubbleDB.authenticate()
+// .then(() => console.log('db connected...'))
+// .catch(err => console.log(err))
+
+(async () => {
+  try {
+    await doubbleDB.sync(); // Create tables if they don't exist
+    console.log('Database synced successfully.');
+    const newUser = await User.create({
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'johndoe@example.com',
+      // role: 'DD',
+      password: "qwewwrxgfdcxt"
+    });
+
+    console.log('New user created:', newUser.toJSON());
+  } catch (error) {
+    console.error('Error syncing database:', error);
+  }
+})();
