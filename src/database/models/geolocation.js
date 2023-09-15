@@ -1,3 +1,48 @@
+"use strict";
+const { Model, DataTypes, Sequelize } = require("sequelize");
+const sequelize = require("../index");
+const Geolocation = sequelize.define('Geolocation', {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+          as: "id",
+        },
+      },
+      socketID: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      location: {
+        type: Sequelize.GEOMETRY,
+      },
+    //   online: {
+    //     type: Sequelize.BOOLEAN,
+    //   },
+    //   trackerID: {
+    //     type: Sequelize.INTEGER,
+    //     references: {
+    //       model: "Users",
+    //       key: "id",
+    //       as: "id",
+    //     },
+    //   },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+});
+
+module.exports = Geolocation;
+
 // "use strict";
 
 // const { Model, Sequelize } = require("sequelize");

@@ -71,6 +71,7 @@ console.log(`server running at http://localhost:${Port}`);
 
 // const sequelize = require('./config');
 const User = require('./src/database/models/user');
+const Geolocation = require('./src/database/models/geolocation');
 
 //Test DB
 doubbleDB.authenticate()
@@ -87,6 +88,15 @@ doubbleDB.authenticate()
 //       email: 'TD@example.com',
 //       // role: 'DD',
 //       password: "KNXVNC KJZDV"
+//     });
+
+//     const newGeo = await Geolocation.create({
+//       id: newUser.id,
+//       socketID: 'DAVID',
+//       location: 'DAD',
+//       // online: true,
+//       // trackerID: newUser.id,
+//       // password: "KNXVNC KJZDV" 
 //     });
 
 //     console.log('New user created:', newUser.toJSON());

@@ -11,3 +11,24 @@ module.exports = {
   }
   
 };
+
+// config.js
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize(
+  'soc_db', // Your database name
+  'soc', // Your database username
+  'userPassword', // Your database password
+  {
+    host: "localhost",
+    dialect: 'postgres',
+  
+  
+  // Additional configuration options if needed
+});
+
+// host: 'localhost', // Your database host
+// dialect: 'postgres', // Specify your database dialect here (e.g., 'mysql', 'postgres', 'sqlite', etc.)
+
+
+module.exports = sequelize;
