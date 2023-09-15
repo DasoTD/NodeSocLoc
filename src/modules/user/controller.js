@@ -1,20 +1,20 @@
 const UserService  = require("./service");
 
-// class UserController {
-    const signup = async (req, res) =>{
+class UserController {
+    static async signup (req, res){
         try {
-            const {firstName, lastName, email, password, role} = req.body;
-            console.log(req.body);
-            let user = await UserService.store(firstName, lastName, email, role, password);
+            const {firstName, lastName, email, password} = req.body;
+            let user = await UserService.store(firstName, lastName, email,  password);
 
-            console.log("data");
-            return user;
+            res.status(201).send({
+                success: true,
+                message: "user successfully created",
+                user,
+              });
         } catch (error) {
             return error
         }
     }
-// }
-
-module.exports = {
-    signup
 };
+
+module.exports = UserController

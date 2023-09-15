@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {  signup } = require("./controller");
+const UserController = require("./controller");
 const {handleRequest} = require("../../middlewares")
 const AuthValidator = require("./validator")
 
@@ -8,8 +8,6 @@ router.post("/signup",
 // handleRequest, 
 // AuthValidator.validateSignUpForm(),
 // AuthValidator.validate,
-signup
+UserController.signup
 )
-
-// export default router;
 module.exports = router;

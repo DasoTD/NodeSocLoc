@@ -73,24 +73,24 @@ console.log(`server running at http://localhost:${Port}`);
 const User = require('./src/database/models/user');
 
 //Test DB
-// doubbleDB.authenticate()
-// .then(() => console.log('db connected...'))
-// .catch(err => console.log(err))
+doubbleDB.authenticate()
+.then(() => console.log('db connected...'))
+.catch(err => console.log(err))
 
-(async () => {
-  try {
-    await doubbleDB.sync(); // Create tables if they don't exist
-    console.log('Database synced successfully.');
-    const newUser = await User.create({
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@example.com',
-      // role: 'DD',
-      password: "qwewwrxgfdcxt"
-    });
+// (async () => {
+//   try {
+//     await doubbleDB.sync(); // Create tables if they don't exist
+//     console.log('Database synced successfully.');
+//     const newUser = await User.create({
+//       firstName: 'DAVID',
+//       lastName: 'DAD',
+//       email: 'TD@example.com',
+//       // role: 'DD',
+//       password: "KNXVNC KJZDV"
+//     });
 
-    console.log('New user created:', newUser.toJSON());
-  } catch (error) {
-    console.error('Error syncing database:', error);
-  }
-})();
+//     console.log('New user created:', newUser.toJSON());
+//   } catch (error) {
+//     console.error('Error syncing database:', error);
+//   }
+// })();

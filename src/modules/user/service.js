@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
-const db = require("../../dd");
-const doubbleDB = require("../../database")
+// const db = require("../../dd");
+// const doubbleDB = require("../../database")
 const User = require("../../database/models/user") //db.User;
 //require("../../../models/user");// db.User;
 
@@ -14,9 +14,10 @@ const User = require("../../database/models/user") //db.User;
 //     })();
 
 class UserService {
-    static async store(firstName, lastName, email, role, password){
+    static async store(firstName, lastName, email,  password){
         console.log("dd");
-        let user = await User.create({ firstName, lastName, email, password });
+        let user = await User.create({ firstName: firstName, lastName: lastName, email: email, password:password });
+        console.log("done");
         return user;
     }
 
