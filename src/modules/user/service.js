@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 // const db = require("../../dd");
 // const doubbleDB = require("../../database")
-const User = require("../../database/models/user") //db.User;
+const User = require("../../../models/User") //db.User;
 //require("../../../models/user");// db.User;
 
 // (async () => {

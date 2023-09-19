@@ -3,23 +3,9 @@ const http = require("http");
 const { Server } = require('socket.io');
 const {join} = require('node:path');
 const appRoutes = require("./src/routes");
-// const doubbleDB = require("./database/models");
+const doubbleDB = require("./src/database/index");
+const {User, Geolocation} = require('./association');
 
-const { Sequelize } = require("sequelize");
-const {DB_NAME,DB_USER, DB_PASSWORD, DB_DIALECT, DB_HOST} = require("./src/database/config")
-
-const doubbleDB = new Sequelize('soc_db', 'soc', "userPassword", {
-  host: DB_HOST,
-  dialect: 'postgres',
-  operatorsAliases: "0",
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-});
 
 let App = express()
 let Port = 9791
@@ -70,37 +56,37 @@ console.log(`server running at http://localhost:${Port}`);
 }); 
 
 // const sequelize = require('./config');
-const User = require('./src/database/models/user');
-const Geolocation = require('./src/database/models/geolocation');
+// const User = require('./models/User');
+// const Geolocation = require('./models/Geolocation');
 
 //Test DB
-doubbleDB.authenticate()
-.then(() => console.log('db connected...'))
-.catch(err => console.log(err))
+// doubbleDB.authenticate()
+// .then(() => console.log('db connected...'))
+// .catch(err => console.log(err))
 
-// (async () => {
-//   try {
-//     await doubbleDB.sync(); // Create tables if they don't exist
-//     console.log('Database synced successfully.');
-//     const newUser = await User.create({
-//       firstName: 'DAVID',
-//       lastName: 'DAD',
-//       email: 'TD@example.com',
-//       // role: 'DD',
-//       password: "KNXVNC KJZDV"
-//     });
+(async () => {
+  try {
+    await doubbleDB.sync({ alter: true }); // Create tables if they don't exist
+    console.log('Database synced successfully.');
+    // const newUser = await User.create({
+    //   firstName: 'DAVID',
+    //   lastName: 'DAD',
+    //   email: 'TD@example.com',
+    //   // role: 'DD',
+    //   password: "KNXVNC KJZDV"
+    // });
 
-//     const newGeo = await Geolocation.create({
-//       id: newUser.id,
-//       socketID: 'DAVID',
-//       location: 'DAD',
-//       // online: true,
-//       // trackerID: newUser.id,
-//       // password: "KNXVNC KJZDV" 
-//     });
+    // const newGeo = await Geolocation.create({
+    //   id: newUser.id,
+    //   socketID: 'DAVID',
+    //   location: 'DAD',
+    //   // online: true,
+    //   // trackerID: newUser.id,
+    //   // password: "KNXVNC KJZDV" 
+    // });
 
-//     console.log('New user created:', newUser.toJSON());
-//   } catch (error) {
-//     console.error('Error syncing database:', error);
-//   }
-// })();
+    // console.log('New user created:', newUser.toJSON());
+  } catch (error) {
+    console.error('Error syncing database:', error);
+  }
+})();

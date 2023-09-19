@@ -1,6 +1,6 @@
 "use strict";
 const { Model, DataTypes, Sequelize } = require("sequelize");
-const sequelize = require("../index");
+const sequelize = require("../src/database/index");
 const Geolocation = sequelize.define('Geolocation', {
     id: {
         allowNull: false,
